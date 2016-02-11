@@ -2,6 +2,12 @@
 
 juke.controller('AlbumCtrl', function($scope, $http, $rootScope, $log, StatsFactory, PlayerFactory) {
 
+  $scope.$on('viewOneAlbum', function (event, album) {
+    $scope.showOneAlbum = true;
+    $scope.album = album;
+    console.log($scope.album);
+  })
+
   // load our initial data
   $http.get('/api/albums/')
   .then(res => $http.get('/api/albums/' + res.data[1]._id)) // temp: use first

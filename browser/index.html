@@ -7,6 +7,8 @@
     <link href="/style.css" rel="stylesheet" />
     <script src="/angular/angular.js" defer></script>
     <script src="/js/module.js" defer></script>
+    <script src="/js/sidebar/sidebar.controller.js" defer></script>
+    <script src="/js/album/albums.controller.js" defer></script>
     <script src="/js/album/album.controller.js" defer></script>
     <script src="/js/player/player.controller.js" defer></script>
     <script src="/js/player/player.factory.js" defer></script>
@@ -15,18 +17,35 @@
     <div id="main" class="container-fluid">
 
       <div class="col-xs-2">
-        <sidebar>
-          <img src="juke.svg" class="logo">
+        <sidebar ng-controller="SidebarCtrl">
+          <img src="/juke.svg" class="logo">
           <section>
             <h4 class="playlist-item active">
-              <a href="#">ALBUMS</a>
+              <a href="#" ng-click="viewAlbums()">ALBUMS</a>
             </h4>
           </section>
         </sidebar>
       </div>
 
       <div class="col-xs-10">
-        <div class="album" ng-controller="AlbumCtrl">
+        <div ng-controller="AlbumsCtrl" ng-show="showAlbums">
+          <h3>Albums</h3>
+          <div class="row">
+            <div ng-repeat="album in albums" class="col-xs-4">
+              <a class="thumbnail" href="#" ng-click="viewOneAlbum()">
+                <img ng-src="{{ album.imageUrl }}">
+                <div class="caption">
+                  <h5>
+                    <span>{{ album.name }}</span>
+                  </h5>
+                  <small>{{ album.songsNum }} tracks</small>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="album" ng-controller="AlbumCtrl" ng-show="showOneAlbum">
           <p>
             <h3>{{ album.name }} - Total Duration: {{ fullDuration }} minutes</h3>
             <img ng-src="{{ album.imageUrl }}" class="img-thumbnail">
