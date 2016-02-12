@@ -6,4 +6,8 @@ juke.controller('SidebarCtrl', function($scope, $rootScope) {
     $rootScope.$broadcast('viewAlbums');
   }
 
+  $scope.viewAllArtists = function () {
+    $rootScope.$broadcast('viewArtists');
+  }
+
 });

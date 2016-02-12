@@ -4,7 +4,7 @@ juke.factory('PlayerFactory', function($rootScope){
   var audio = document.createElement('audio');
   var playing = false;
   var currentSong = null;
-  var songList;
+  var currentList = [];
   var progress;
 
   audio.addEventListener('timeupdate', function () {
@@ -15,11 +15,11 @@ juke.factory('PlayerFactory', function($rootScope){
   // non-UI logic in here
   var factory = {
 
-    start: function (song, albumSongList) {
+    start: function (song, songList) {
       // stop existing audio (e.g. other song) in any case
-      if (!albumSongList) { songList = $rootScope.songList; } else { songList = albumSongList; }
       this.pause();
       currentSong = song;
+      currentList = songList;
       playing = true;
       audio.src = song.audioUrl;
       audio.load();
@@ -46,27 +46,27 @@ juke.factory('PlayerFactory', function($rootScope){
 
     next: function () {
       var nextSong;
-      var songIdx = songList.indexOf(currentSong);
-      if (songIdx === songList.length - 1) {
-        nextSong = songList[0];
+      var songIdx = currentList.indexOf(currentSong);
+      if (songIdx === currentList.length - 1) {
+        nextSong = currentList[0];
       } else {
-        nextSong = songList[songIdx + 1];
+        nextSong = currentList[songIdx + 1];
       }
 
-      this.start(nextSong, songList);
+      this.start(nextSong, currentList);
     },
 
     previous: function () {
       var prevSong;
 
-      var songIdx = songList.indexOf(currentSong);
+      var songIdx = currentList.indexOf(currentSong);
         if (songIdx === 0) {
-          prevSong = songList[songList.length - 1];
+          prevSong = currentList[currentList.length - 1];
         } else {
-          prevSong = songList[songIdx - 1];
+          prevSong = currentList[songIdx - 1];
         }
 
-      this.start(prevSong, songList);
+      this.start(prevSong, currentList);
     },
 
     getProgress: function () {

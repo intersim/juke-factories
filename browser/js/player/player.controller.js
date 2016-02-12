@@ -1,6 +1,6 @@
 'use strict';
 
-juke.controller('PlayerCtrl', function ($scope, $rootScope, PlayerFactory) {
+juke.controller('PlayerCtrl', function ($scope, PlayerFactory) {
   // state
   $scope.currentSong = function() {
     return PlayerFactory.getCurrentSong();
@@ -11,7 +11,6 @@ juke.controller('PlayerCtrl', function ($scope, $rootScope, PlayerFactory) {
   }
 
   $scope.progress = function () {
-    // $scope.$digest();
     return PlayerFactory.getProgress() * 100;
   }
 
@@ -39,7 +38,7 @@ juke.controller('PlayerCtrl', function ($scope, $rootScope, PlayerFactory) {
   }
 
   // outgoing events (to Album… or potentially other characters)
-  $scope.next = function () { pause(); PlayerFactory.next(); $rootScope.$broadcast('next'); };
+  $scope.next = function () { pause(); PlayerFactory.next(); };
   $scope.prev = function () { pause(); PlayerFactory.previous(); };
 
 });

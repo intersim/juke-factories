@@ -18,9 +18,9 @@ juke.controller('AlbumsCtrl', function($scope, $http, $log, $rootScope) {
     $scope.showAlbums = true;
   })
 
-  $scope.viewOneAlbum = function () {
+  $scope.viewOneAlbum = function (album) {
     $scope.showAlbums = false;
-    $rootScope.$broadcast('viewOneAlbum', {id: this.album._id});
+    $rootScope.$broadcast('viewOneAlbum', {name: 'oneAlbum', id: album._id});
   }
 
 });

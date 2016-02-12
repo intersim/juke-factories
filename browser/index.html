@@ -24,6 +24,11 @@
               <a href="#" ng-click="viewAlbums()">ALBUMS</a>
             </h4>
           </section>
+          <section>
+            <h5 class="playlist-item">
+              <a ng-click="viewAllArtists()" href="#">ARTISTS</a>
+            </h5>
+          </section>
         </sidebar>
       </div>
 
@@ -32,7 +37,7 @@
           <h3>Albums</h3>
           <div class="row">
             <div ng-repeat="album in albums" class="col-xs-4">
-              <a class="thumbnail" href="#" ng-click="viewOneAlbum()">
+              <a class="thumbnail" href="#" ng-click="viewOneAlbum(album)">
                 <img ng-src="{{ album.imageUrl }}">
                 <div class="caption">
                   <h5>
@@ -62,7 +67,7 @@
             <tbody>
               <tr ng-repeat="song in album.songs" ng-class="{active: song === currentSong()}">
                 <td>
-                  <button class="btn btn-default btn-xs" ng-click="toggle(song)">
+                  <button class="btn btn-default btn-xs" ng-click="toggle(song, album.songs)">
                     <span class="glyphicon" ng-class="{'glyphicon-pause': playing() && song === currentSong(), 'glyphicon-play': song !== currentSong() || !playing()}"></span>
                   </button>
                 </td>
