@@ -4,9 +4,8 @@ juke.controller('AlbumsCtrl', function($scope, $http, $log, $rootScope) {
   $http.get('/api/albums')
   .then(res => res.data)
   .then(albums => {
-    albums.forEach(function (album, i) {
+    albums.forEach(function (album) {
       album.imageUrl = '/api/albums/' + album._id + '.image';
-      album.albumsIndex = i;
       album.songsNum = album.songs.length;
     });
 
@@ -16,6 +15,10 @@ juke.controller('AlbumsCtrl', function($scope, $http, $log, $rootScope) {
 
   $scope.$on('viewAlbums', function () {
     $scope.showAlbums = true;
+  })
+
+  $scope.$on('viewArtists', function () {
+    $scope.showAlbums = false;
   })
 
   $scope.viewOneAlbum = function (album) {

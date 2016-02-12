@@ -2,6 +2,10 @@
 
 juke.controller('AlbumCtrl', function($scope, $http, $rootScope, $log, StatsFactory, PlayerFactory) {
 
+  $scope.$on('viewArtists', function () {
+    $scope.showOneAlbum = false;
+  })
+
   // load our initial data
   $scope.$on('viewOneAlbum', function (event, data) {
     if (data.name !== 'oneAlbum') return $scope.showOneAlbum = false;
